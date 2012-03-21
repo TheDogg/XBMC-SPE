@@ -12,9 +12,8 @@
 $xml = simplexml_load_file("test.xml");
 
 // Store the smart playlist type in a variable ($playlisttype)
-$playlisttype = $xml->attributes();
-echo $playlisttype. "<br />";
-
+$playlistattribute = $xml->attributes();
+$playlisttype = $playlistattribute["type"];
 
 // Set $i counter to Zero
 $i = 0;
@@ -47,10 +46,7 @@ foreach($xml->children() as $child)
   		$orderdirection = $orderattribute["direction"];
   		$ordervalue = $child;
   	}
-  	
-echo $child->getName() . ": " . $child . "<br />";
 }
-echo "----------------------<br />";
 echo "Playlist Type: " . $playlisttype. "<br />";
 echo "Playlist Name: " . $playlistname. "<br />";
 echo "Playlist Match: " . $playlistmatch. "<br />";
