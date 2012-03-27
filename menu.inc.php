@@ -13,7 +13,7 @@ echo "<a href=\"index.php?playlist=tvshows.xml\">tvshows</a> - ";
 echo "<a href=\"index.php?playlist=episodes.xml\">episodes</a> - ";
 echo "<br />";
 echo "<br />";
-if (empty($_GET[itemid])){
+if (empty($_GET[playlist])){
 	exit;
 }
 
