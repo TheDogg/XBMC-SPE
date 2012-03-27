@@ -51,8 +51,8 @@ if ($playlisttype == 'tvshows'){
 	$genrelinktable = "genrelinktvshow";
 	$genreitemid = "idShow";
 	// Set joins for tvshow specific
-	$join = "join tvshowlinkepisode as TLE on MT.".$genreitemid." = TLE.".$genreitemid."
-	join episode as E on TLE.idepisode = E.idepisode";
+	$join = "join tvshowlinkepisode on ".$maintable.".".$genreitemid." = tvshowlinkepisode.".$genreitemid."
+	join episode on tvshowlinkepisode.idepisode = episode.idepisode";
 }
 if ($playlisttype == 'episodes'){
 	choosedb($dbnamevideo);
@@ -159,18 +159,23 @@ for ($j = 0; $j < $i; $j++){
 	// Set SQL query
 		// Case year
 		if ($rulefield[$j] == 'year'){
-			$sqlquery = "SELECT ".$maintablename." FROM ".$maintable." WHERE ".$maintableyear." ".$queryoperatorandvalue."";
+			$sqlquery = "SELECT ".$maintable.".".$maintablename." FROM ".$maintable." WHERE ".$maintableyear." ".$queryoperatorandvalue."";
 		}
 		// Case genre
 		if ($rulefield[$j] == 'genre'){
-			$sqlquery = "SELECT ".$maintablename." from genre as G
-					join ".$genrelinktable." as GLT on G.idgenre = GLT.idgenre
-					join ".$maintable." as MT on GLT.".$genreitemid."= MT.".$genreitemid."
+			$sqlquery = "SELECT ".$maintable.".".$maintablename." from genre 
+					join ".$genrelinktable."  on genre.idgenre = ".$genrelinktable.".idgenre
+					join ".$maintable." on ".$genrelinktable.".".$genreitemid."= ".$maintable.".".$genreitemid."
 					".$join."
 					WHERE strGenre ".$queryoperatorandvalue." ".$queryorder." ".$querylimit."";
 		}
 		// Case time
-		// Case filename
+		// Case filename (Movies and Episodes)
+		if ($rulefield[$j] == 'filename'){
+			$sqlquery = "SELECT ".$maintable.".".$maintablename." from files 
+					join ".$maintable." on files.idFile = ".$maintable.".idFile
+					WHERE files.strFilename ".$queryoperatorandvalue." ".$queryorder." ".$querylimit."";
+		}
 		// Case path
 		// Case playcount
 		// Case lastplayed
