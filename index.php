@@ -9,9 +9,10 @@
 /**********************************************************************/
 include('config.inc.php');
 include('lib.inc.php');
+include ('menu.inc.php');
 
-// Call function parsexml() with specified XML file
-parsexml("test.xml");
+// Call function parsexml() with specified XML file ($_GET[playlist])
+parsexml($_GET[playlist]);
 
 echo "Loaded playlist info:<br />";
 echo "Playlist Type: " . $playlisttype. "<br />";
@@ -177,6 +178,12 @@ for ($j = 0; $j < $i; $j++){
 					WHERE files.strFilename ".$queryoperatorandvalue." ".$queryorder." ".$querylimit."";
 		}
 		// Case path
+		if ($rulefield[$j] == 'path'){
+			$sqlquery = "SELECT ".$maintable.".".$maintablename." from path 
+					join files on path.idPath = files.idPath
+					join ".$maintable." on files.idFile = ".$maintable.".idFile
+					WHERE path.strPath ".$queryoperatorandvalue." ".$queryorder." ".$querylimit."";
+		}
 		// Case playcount
 		// Case lastplayed
 		// Case inprogress
