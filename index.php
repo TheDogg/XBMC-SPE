@@ -185,6 +185,11 @@ for ($j = 0; $j < $i; $j++){
 					WHERE path.strPath ".$queryoperatorandvalue." ".$queryorder." ".$querylimit."";
 		}
 		// Case playcount
+		if ($rulefield[$j] == 'playcount'){
+			$sqlquery = "SELECT ".$maintable.".".$maintablename." from files 
+					join ".$maintable." on files.idFile = ".$maintable.".idFile
+					WHERE files.playcount ".$queryoperatorandvalue." ".$queryorder." ".$querylimit."";
+		}
 		// Case lastplayed
 		// Case inprogress
 		// Case rating

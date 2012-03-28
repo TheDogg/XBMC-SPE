@@ -2,7 +2,7 @@
 <smartplaylist type="movies">
     <name>Test Smart Playlist</name>
     <match>one</match>
-    <rule field="path" operator="contains">Dragon</rule>
+    <rule field="playcount" operator="greaterthan">10</rule>
     
     <limit>50</limit>
     <order direction="ascending">random</order>
